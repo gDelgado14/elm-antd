@@ -36,7 +36,7 @@ Note that by default a checkbox does not emit a message. You need to call `withO
    This component is themeable. See ./src/Ant/Checkbox/Css.elm
 -}
 
-import Ant.Css.Common exposing (checkboxCustomCheckmarkClass, checkboxLabelClass)
+import Ant.Css.Common exposing (checkboxCustomCheckmarkClass, checkboxLabelClass, checkboxWrapperClass)
 import Html as H exposing (Html)
 import Html.Attributes as Attr
 import Html.Events as Events
@@ -147,15 +147,24 @@ toHtml checked (Checkbox config) =
 
             else
                 checkboxLabelClass ++ "--enabled"
+
+        checkedWrapperClass =
+            if checked then
+                [ Attr.class (checkboxWrapperClass ++ "--checked") ]
+
+            else
+                []
     in
     H.label [ Attr.class checkboxLabelClass, Attr.class labelEnabledClass ]
-        [ H.text <| Maybe.withDefault "" config.label
-        , H.input
-            [ Attr.type_ "checkbox"
-            , Attr.checked checked
-            , optionalOnCheckEvent
-            , Attr.disabled config.disabled
+        [ H.span (List.concat [ checkedWrapperClass, [ Attr.class checkboxWrapperClass ] ])
+            [ H.input
+                [ Attr.type_ "checkbox"
+                , Attr.checked checked
+                , optionalOnCheckEvent
+                , Attr.disabled config.disabled
+                ]
+                []
+            , H.span [ Attr.class checkboxCustomCheckmarkClass ] []
             ]
-            []
-        , H.span [ Attr.class checkboxCustomCheckmarkClass ] []
+        , H.text <| Maybe.withDefault "" config.label
         ]

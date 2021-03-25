@@ -14,6 +14,7 @@ module Ant.Css.Common exposing
     , checkboxClass
     , checkboxCustomCheckmarkClass
     , checkboxLabelClass
+    , checkboxWrapperClass
     , content
     , elmAntdPrefix
     , formCheckboxFieldClass
@@ -149,6 +150,11 @@ checkboxClass =
 checkboxLabelClass : String
 checkboxLabelClass =
     checkboxClass ++ "-label"
+
+
+checkboxWrapperClass : String
+checkboxWrapperClass =
+    checkboxClass ++ "-wrapper"
 
 
 checkboxCustomCheckmarkClass : String
